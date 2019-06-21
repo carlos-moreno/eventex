@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+import django_heroku
 from decouple import config, Csv
 from dj_database_url import parse as dburl
 
@@ -121,3 +122,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '/staticfiles/')
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
