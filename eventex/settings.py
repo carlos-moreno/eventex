@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
+import django_heroku
 from decouple import config, Csv
 from dj_database_url import parse as dburl
 
@@ -123,13 +124,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, '/staticfiles/')
 
-# Try to import django-heroku depending on Travis or Heroku
-try:
-    # Configure Django App for Heroku.
-    import django_heroku
-    django_heroku.settings(locals())
-except ImportError:
-    found = False
+# Activate Django-Heroku.
+django_heroku.settings(locals(), test_runner=False)
 
 # Email configuration
 EMAIL_BACKEND = config('EMAIL_BACKEND')
