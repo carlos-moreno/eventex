@@ -1,10 +1,9 @@
+dist: xenial
+
 language: python
 
 python:
   - "3.5"
-
-before_install:
-  - sudo apt-get install -y sqlite3
 
 install:
   - cp contrib/env-sample .env
