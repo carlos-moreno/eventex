@@ -10,3 +10,4 @@ sqlparse==0.3.0
 static3==0.7.0
 whitenoise==4.1.2
 django-extensions==2.1.9
+django-test-without-migrations==0.6
