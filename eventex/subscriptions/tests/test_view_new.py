@@ -8,7 +8,7 @@ from eventex.subscriptions.models import Subscription
 
 class SubscriptionsNewGet(TestCase):
     def setUp(self):
-        self.resp = self.client.get(r('subscriptions:new'))
+        self.resp = self.client.get(r("subscriptions:new"))
 
     def test_get(self):
         """Get /inscricao/ must status code 200."""
@@ -16,16 +16,16 @@ class SubscriptionsNewGet(TestCase):
 
     def test_template(self):
         """Must use subscriptions/subscription_form.html."""
-        self.assertTemplateUsed(self.resp, 'subscriptions/subscription_form.html')
+        self.assertTemplateUsed(self.resp, "subscriptions/subscription_form.html")
 
     def test_html(self):
         """Html must contain input tags"""
         tags = (
-            ('<form', 1),
-            ('<input', 6),
+            ("<form", 1),
+            ("<input", 6),
             ('type="text"', 3),
             ('type="email"', 1),
-            ('type="submit"', 1)
+            ('type="submit"', 1),
         )
         for text, count in tags:
             with self.subTest():
@@ -33,23 +33,27 @@ class SubscriptionsNewGet(TestCase):
 
     def test_csrf(self):
         """Html must contains csrf"""
-        self.assertContains(self.resp, 'csrfmiddlewaretoken')
+        self.assertContains(self.resp, "csrfmiddlewaretoken")
 
     def test_has_form(self):
         """"Context must have subscription form."""
-        form = self.resp.context['form']
+        form = self.resp.context["form"]
         self.assertIsInstance(form, SubscriptionForm)
 
 
 class SubscriptionsNewPostValid(TestCase):
     def setUp(self):
-        data = dict(name='Carlos Augusto Moreno R. Junior', cpf='12345678901',
-                    email='omorenodovale@gmail.com', phone='68-99999-9999')
-        self.resp = self.client.post(r('subscriptions:new'), data)
+        data = dict(
+            name="Carlos Augusto Moreno R. Junior",
+            cpf="12345678901",
+            email="omorenodovale@gmail.com",
+            phone="68-99999-9999",
+        )
+        self.resp = self.client.post(r("subscriptions:new"), data)
 
     def test_post(self):
         """Valid POST should redirect to /inscricao/1/"""
-        self.assertRedirects(self.resp, r('subscriptions:detail', 1))
+        self.assertRedirects(self.resp, r("subscriptions:detail", 1))
 
     def test_send_subscribe_email(self):
         self.assertEqual(1, len(mail.outbox))
@@ -60,21 +64,21 @@ class SubscriptionsNewPostValid(TestCase):
 
 class SubscriptionsNewPostInvalid(TestCase):
     def setUp(self):
-        self.resp = self.client.post(r('subscriptions:new'), {})
+        self.resp = self.client.post(r("subscriptions:new"), {})
 
     def test_post(self):
         """Invalid POST should not redirect"""
         self.assertEqual(200, self.resp.status_code)
 
     def test_template(self):
-        self.assertTemplateUsed(self.resp, 'subscriptions/subscription_form.html')
+        self.assertTemplateUsed(self.resp, "subscriptions/subscription_form.html")
 
     def test_has_form(self):
-        form = self.resp.context['form']
+        form = self.resp.context["form"]
         self.assertIsInstance(form, SubscriptionForm)
 
     def test_form_has_errors(self):
-        form = self.resp.context['form']
+        form = self.resp.context["form"]
         self.assertTrue(form.errors)
 
     def test_dont_save_subscription(self):
@@ -83,8 +87,7 @@ class SubscriptionsNewPostInvalid(TestCase):
 
 class TemplateRegressionTest(TestCase):
     def test_template_has_non_field_errors(self):
-        invalid_data = dict(name='Carlos Augusto Moreno R. Junior',
-                            cpf='12345678901')
-        resp = self.client.post(r('subscriptions:new'), invalid_data)
+        invalid_data = dict(name="Carlos Augusto Moreno R. Junior", cpf="12345678901")
+        resp = self.client.post(r("subscriptions:new"), invalid_data)
 
         self.assertContains(resp, '<ul class="errorlist nonfield">')
