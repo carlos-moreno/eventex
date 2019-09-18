@@ -12,7 +12,7 @@ Sistema de Eventos encomendado pela Morena.
 3. Ative o virtualenv.
 4. Instale as dependências.
 5. Configure a instância com o .env
-6. Execute os teste.
+6. Execute os testes.
 
 ```console
 git clone https://github.com/carlos-moreno/eventex.git wttd
