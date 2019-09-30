@@ -6,7 +6,7 @@ python:
   - "3.7"
 
 services:
-  postgresql
+  - postgresql
 
 install:
   - cp contrib/env-sample .env
