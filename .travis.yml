@@ -14,7 +14,7 @@ install:
 
 before_script:
   - psql -c "CREATE DATABASE testdb;" -U postgres
-  - echo "DATABASE_URL=postgres://postgres@127.0.0.1:5432/testedb" >> .env
+  - echo "DATABASE_URL=postgres://postgres@127.0.0.1:5432/testdb" >> .env
   - python manage.py migrate --noinput
   - python manage.py collectstatic --noinput
 
