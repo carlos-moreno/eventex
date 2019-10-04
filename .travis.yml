@@ -11,6 +11,7 @@ services:
 install:
   - cp contrib/env-sample .env
   - pip install -r requirements.txt
+  - pip install codeclimate-test-reporter
 
 before_script:
   - psql -c "CREATE DATABASE testdb;" -U postgres
@@ -20,3 +21,7 @@ before_script:
 
 script:
   - python manage.py test
+  - coverage run manage.py test
+
+after_script:
+  - codeclimate-test-reporter --file .coverage
