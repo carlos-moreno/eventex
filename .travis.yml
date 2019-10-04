@@ -30,4 +30,4 @@ script:
 
 after_script:
   - cd carlos-moreno/eventex
-  - ./cc-test-reporter after-build .coverage
+  - ./cc-test-reporter after-build carlos-moreno/eventex/.coverage upload-coverage
