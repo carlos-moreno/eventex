@@ -1,5 +1,9 @@
 dist: xenial
 
+env:
+  global:
+    - CC_TEST_REPORTER_ID=226b96b5b39ff5c98d9c3bb15bc658048bfd14cc75e8f99c45cc962e72c56e37
+
 language: python
 
 python:
@@ -11,17 +15,18 @@ services:
 install:
   - cp contrib/env-sample .env
   - pip install -r requirements.txt
-  - pip install codeclimate-test-reporter
 
 before_script:
   - psql -c "CREATE DATABASE testdb;" -U postgres
   - echo "DATABASE_URL=postgres://postgres@127.0.0.1:5432/testdb" >> .env
   - python manage.py migrate --noinput
   - python manage.py collectstatic --noinput
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
-  - python manage.py test
   - coverage run manage.py test
 
 after_script:
-  - codeclimate-test-reporter --file .coverage
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
