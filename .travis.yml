@@ -29,4 +29,5 @@ script:
   - coverage run manage.py test
 
 after_script:
+  - cd carlos-moreno/eventex
   - ./cc-test-reporter after-build .coverage
