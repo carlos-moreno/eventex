@@ -29,4 +29,4 @@ script:
   - coverage run manage.py test
 
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT upload-coverage
+  - ./cc-test-reporter after-build /home/travis/build/carlos-moreno/eventex upload-coverage
