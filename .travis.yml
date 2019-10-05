@@ -2,7 +2,7 @@ dist: xenial
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=226b96b5b39ff5c98d9c3bb15bc658048bfd14cc75e8f99c45cc962e72c56e37
+    - CC_TEST_REPORTER_ID=66204937e5bda122b34deb4ffc577d0476c4cd2b94ec19cd6ddf76e60c117877
 
 language: python
 
