@@ -29,4 +29,4 @@ script:
   - coverage run manage.py test
 
 after_script:
-  - ./cc-test-reporter after-build /home/travis/build/carlos-moreno/eventex upload-coverage
+  - ./cc-test-reporter after-build --file .coverage
