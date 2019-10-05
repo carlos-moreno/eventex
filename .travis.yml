@@ -30,4 +30,5 @@ script:
   - coverage run manage.py test
 
 after_script:
-  - ./cc-test-reporter after-build --exit-code 0
+  - coverage xml
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
