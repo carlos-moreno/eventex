@@ -30,4 +30,4 @@ script:
   - coverage run manage.py test
 
 after_script:
-  - ./cc-test-reporter format-coverage -t coverage.py
+  - ./cc-test-reporter format-coverage -t .coverage
