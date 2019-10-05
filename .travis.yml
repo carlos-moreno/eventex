@@ -1,34 +1,27 @@
 dist: xenial
-
-addons:
-  code_climate:
-    repo_token:
-      secure: "YTkD42VzWAeyQ8x7TcICoTTnNLwjL31qcBN5/CN0EN2KQBbypW5r26FIyoBFKWdp81kS+itG1vQgL97MHVsd0RiqoodSRBNNW//PTkjfGn40EZ7T6KZf7ZAWcP73+kIetw0SXdehCpGL3hTevcv+xXjo/I2X+cr0xI5d7UJA18PVZnhHBa4tBTxEUKR6aQkEnIINrNPt5iizVAmHCj3WOfbFUmDx3OOxrEa0LOFq8xXsT1B+xhfqKeL1T8819it0QlIEiDiDKOgNBKgW3ZZ19HQbq6twTp6Rojsa3vuQ3obtz6e0zJX18H7BDQvXqFOtrLbYojrrKjmkbE4kywLMzpVfOGWW3Cg6+prT6x5S0+yQ4mfH5ZBwcJZP8785A8bXl34iqQzAAHpR6vP/zET2NuRX1Ug3C0F2XtgvbSVJvk2RP+VSkiZc83rppy6RF/fprsLGZTz7GMgvsHuOuvBAQs1uLhAvFPNcmRs+/Ib6cNC6U8LaR1jd69WJeizJ0KM3ps/Xn3FuO1Z7ZPZaAEeK65C5it0l4ZCwMibaU4FFHKFBevTF2j7Pih+fThIdcjE+y8vCLHIv5/ybh438IdyXQE8e9KNm+NbUnrAF1YlTBLsWga+vaFaoABLfaLce9Rbi3HRpe5YN7VFPnBESLZxSb17k6PM0a3JDpuH6+SHV8SU="
+env:
+  global:
+    - secure: 0Ml4Ix2D8XzQRyUtSParaF0upnZS6wxFfFxdaS4DEMlCCsGpdWPdKPBqgWPINYQAQyiFgCdBS66dIrkcgx3bXYv9lBQ+jnpzwbqKDWQZl0+tEfM4IlZfEz74ATp1kphq96aWjrzap1kT1rw8KIKzBHh29DkrkjGzxn9MMGEttnn9FoKzd8hja9Qo2AE/gLmgvCg3o+i0MJMLLBM9+h5k1cmOpvZBwUCFd20zJ0u7bvPuvhDwNDjcN8khXApiuqukiqA7B89kzvMXJfG/cl5SNO+z3nZTgpP5IppS8DZR8Q71el+ZFgIyujAC2uDiWT2JO6eFxMSda4OxIFZlEFyor0oiaSbCIsXZXYFe29mjw7hA3lpjTspklOgHlhWyzq1eH+6nLeYUpiIulEecIRKzeJBzW21uiHeSZTyTUrgkBaDAKB8b8v0PiCulcqFLx/twC4eQ7uBa17ZZwyj0jDkGlDET9JG+X/7uJlS+t3I/revl7xbCzEmcOkBuc03ioTFljB94Y8DVRcWxen2MA6hOX65vYN0RbCpeasplaCyzwbaKXA4q3HFffWx6atEh0wFlsJyMovk8JdDrl0E20qQ7AnUB7Ask6c6ZSZXLqxXX24oFAIqOqtJNX75cRUJzElW+Cr3s6R9HuyF2lDAKDhHWjkYvSsr+/YZyVueT8WGf7hE=
 
 language: python
-
 python:
-  - "3.7"
-
+  - '3.7'
 services:
   - postgresql
-
 install:
   - cp contrib/env-sample .env
   - pip install -r requirements.txt
-
 before_script:
   - psql -c "CREATE DATABASE testdb;" -U postgres
   - echo "DATABASE_URL=postgres://postgres@127.0.0.1:5432/testdb" >> .env
   - python manage.py migrate --noinput
   - python manage.py collectstatic --noinput
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+    > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-
 script:
   - coverage run manage.py test
-
 after_script:
   - coverage xml
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
