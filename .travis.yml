@@ -28,6 +28,7 @@ before_script:
 
 script:
   - coverage run manage.py test
+  - bundle exec rspec
 
 after_script:
-  - ./cc-test-reporter format-coverage -o .coverage -t coverage.py
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
