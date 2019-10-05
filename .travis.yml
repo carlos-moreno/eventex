@@ -1,13 +1,13 @@
 dist: xenial
 
-env:
-  global:
-    - CC_TEST_REPORTER_ID=token
-
 language: python
 
 python:
   - "3.7"
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=TOKEN
 
 services:
   - postgresql
