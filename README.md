@@ -4,6 +4,7 @@ Sistema de Eventos encomendado pela Morena.
 
 [![Build Status](https://travis-ci.org/carlos-moreno/eventex.svg?branch=master)](https://travis-ci.org/carlos-moreno/eventex)
 [![Maintainability](https://api.codeclimate.com/v1/badges/aa62c026893b5a56b404/maintainability)](https://codeclimate.com/github/carlos-moreno/eventex/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/aa62c026893b5a56b404/test_coverage)](https://codeclimate.com/github/carlos-moreno/eventex/test_coverage)
 
 
 ## Como desenvolver?
